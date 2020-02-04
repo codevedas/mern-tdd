@@ -14,5 +14,9 @@ class MessageApp {
   get(id){
     return this.messages[id]
   }
+  update(id, update){
+    this.messages[id].content = update
+    return this.messages[id]
+  }
 }
 export default MessageApp
