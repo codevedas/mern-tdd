@@ -20,14 +20,14 @@ it("message has content, date, and id", function(){
     expect(testApp.messages[0].id).to.equal(1)
   });
 it("app reads (get)", function() {
-    expect(testApp.get(1).content).to.equal("hi world")
+    expect(testApp.get(0).content).to.equal("hi world")
   });
 it("app updates (update)", function() {
-    testApp.update(1, "hello world")
+    testApp.update(0, "hello world")
     expect(testApp.get(0).content).to.equal('hello world')
   });
 it("app deletes (delete)", function() {
-    testApp.delete(1)
+    testApp.delete(0)
     expect(testApp.messages.length).to.equal(0)
   });
 });
