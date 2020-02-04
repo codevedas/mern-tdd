@@ -9,7 +9,7 @@ function newId(array){
 import fs from 'fs'
 import path from 'path'
 
- class MessageApp {
+class MessageApp {
   constructor(filepath) {
     this.filepath = filepath
     this.messages = filepath ? this.readFromJson() : []
@@ -22,6 +22,7 @@ import path from 'path'
       date: new Date()
     }
     this.messages.push(item)
+    this.writeToJson()
     return this.messages
   }
   // R
@@ -31,20 +32,30 @@ import path from 'path'
   // U
   update(id, update){
     let index = this.messages.findIndex(message => message.id == id )
+    this.writeToJson()
     this.messages[index].content = update
   }
   // D
   delete(id){
     this.messages = this.messages.filter(message => message.id != id)
+    this.writeToJson()
     return this.messages
   }
 
   readFromJson(){
-      return JSON.parse(fs.readFileSync(
-        __dirname+path.normalize(this.filepath),"utf8",(err,data)=>{
+    return JSON.parse(fs.readFileSync(
+      __dirname+path.normalize(this.filepath),"utf8",(err,data)=>{
         if (err) throw err
-        })
-      )
-     }
+      })
+    )
   }
-  export default MessageApp
+  writeToJson(){
+    if (this.filepath) {
+      const jsonItem = JSON.stringify(this.messages)
+      fs.writeFileSync(__dirname+path.normalize(this.filepath), jsonItem, (err) => {
+        if (err) throw err;
+      });
+    }
+  }
+}
+export default MessageApp
