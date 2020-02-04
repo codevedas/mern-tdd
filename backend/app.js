@@ -18,5 +18,9 @@ class MessageApp {
     this.messages[id].content = update
     return this.messages[id]
   }
+  delete(id) {
+    this.messages.splice(id - 1, 1)
+    return this.messages
+  }
 }
 export default MessageApp
