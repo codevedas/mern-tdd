@@ -15,32 +15,49 @@ class MessageApp {
     this.messages = filepath ? this.readFromJson() : []
   }
   // C
-  post(message){
-    let item = {
-      id: newId(this.messages),
-      content: message,
-      date: new Date()
+  post(content) {
+      if (content) {
+        this.messages.push({
+          content: content,
+          date: new Date(),
+          id: newId(this.messages)
+        })
+        this.writeToJson()
+        return this.messages
+      }
+      else if (!content){
+        return []
+      }
     }
-    this.messages.push(item)
-    this.writeToJson()
-    return this.messages
-  }
   // R
   get(id){
     return this.messages.filter(message => message.id == id )[0]
   }
-  // U
-  update(id, update){
-    let index = this.messages.findIndex(message => message.id == id )
-    this.writeToJson()
-    this.messages[index].content = update
-  }
-  // D
-  delete(id){
-    this.messages = this.messages.filter(message => message.id != id)
-    this.writeToJson()
+  getAll(){
     return this.messages
   }
+  update(id,update){
+      let index = this.messages.findIndex(message => message.id == id )
+     if (index >= 0) {
+        this.messages[index].content = update
+        this.writeToJson()
+        return this.messages
+      }
+      else {
+        return []
+      }
+    }
+  delete(id) {
+      let index = this.messages.findIndex(message => message.id === id )
+      if (index >= 0) {
+        this.messages = this.messages.filter(message => message.id !== id)
+        this.writeToJson()
+        return this.messages
+      }
+      else {
+        return "Message not found in database"
+      }
+    }
 
   readFromJson(){
     return JSON.parse(fs.readFileSync(
