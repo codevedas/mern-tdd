@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nyc mocha -r esm ./test/* --exit",
+    "test": "env NODE_ENV=test nyc mocha -r esm ./test/* --exit",
     "start": "node -r esm app.js"
   },
   "keywords": [],
