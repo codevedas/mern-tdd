@@ -37,7 +37,7 @@ class MessageApp {
     return this.messages
   }
   update(id,update){
-      let index = this.messages.findIndex(message => message.id == id )
+      let index = this.messages.findIndex(message => message.id == id)
      if (index >= 0) {
         this.messages[index].content = update
         this.writeToJson()
@@ -47,10 +47,11 @@ class MessageApp {
         return []
       }
     }
+
   delete(id) {
-      let index = this.messages.findIndex(message => message.id === id )
+      let index = this.messages.findIndex(message => message.id == id )
       if (index >= 0) {
-        this.messages = this.messages.filter(message => message.id !== id)
+        this.messages = this.messages.filter(message => message.id != id)
         this.writeToJson()
         return this.messages
       }

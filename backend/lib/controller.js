@@ -17,6 +17,7 @@ function getAll(){
     }
   })
 }
+
 function post(content){
   return new Promise((resolve, reject) => {
     let message = messageApp.post(content)
@@ -28,7 +29,19 @@ function post(content){
   })
 }
 
+function deleteMessage(id){
+  return new Promise((resolve, reject) => {
+    let result = messageApp.delete(id)
+    if (result !== 'Message not found in database') {
+      resolve(result)
+    } else {
+      reject(result)
+    }
+  })
+}
+
 module.exports = {
   getAll,
-  post
+  post,
+  deleteMessage
 }
