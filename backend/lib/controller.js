@@ -10,11 +10,11 @@ if (process.env.npm_lifecycle_event == "test") {
 
     function getAll(){
       return new Promise((resolve, reject) => {
-        var result = messageApp.getAll()
-        if (result !== []) {
+        let result = messageApp.getAll()
+        if (result.length !== 0) {
           resolve(result)
         } else {
-          reject(result)
+          reject("No messages in database")
         }
       })
     }
@@ -45,23 +45,25 @@ if (process.env.npm_lifecycle_event == "test") {
     function getSingleMessage(id){
       return new Promise((resolve, reject) => {
         let result = messageApp.get(id)
-        if (result !== []) {
+        if (result) {
           resolve(result)
         } else {
-          reject(result)
+          reject('No messages in database')
         }
       })
     }
+
     function updateMessage(id, content){
       return new Promise((resolve, reject) => {
-        let result = messageApp.update(id, content)
-        if (result !== []) {
-          resolve(result)
+        let message = messageApp.update(id, content)
+        if (message.length !== 0) {
+          resolve(message)
         } else {
-          reject(result)
+          reject("You can't post an empty message")
         }
       })
     }
+
     module.exports = {
       getAll,
       getSingleMessage,

@@ -126,6 +126,7 @@ it("errors if cant find single message", function(done) {
       done()
     })
   })
+
 it("errors on bad update", function(done) {
     data = {
       content: "Hello World"
@@ -139,10 +140,11 @@ it("errors on bad update", function(done) {
       if (err) {
         return done(err)
       }
-      expect(res.body).to.equal("Message not found in database")
+      expect(res.body).to.equal('You can\'t post an empty message')
       done()
     })
   })
+
 it("errors deleting message that doesn't exist", function(done) {
     data = {
       id: 0
