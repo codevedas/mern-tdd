@@ -5,12 +5,33 @@ import axios from 'axios';
 const PORT = 'http://localhost:3001';
 
 class MessageApp extends Component {
-submitMessage = (data) => {
+  constructor(){
+    super()
+    this.state = {
+      messages: []
+    }
+  }
+
+  componentDidMount(){
+    this.getAllMessages()
+  }
+
+  getAllMessages=()=>{
+    axios.get(`${PORT}/`)
+    .then((result)=>{
+      this.setState({
+        messages: result.data
+      })
+    })
+  }
+
+  submitMessage = (data) => {
     axios.post(`${PORT}/message`, {
       content: data
     })
   }
-render(){
+  
+  render(){
     return (
       <div>
       <MessageForm

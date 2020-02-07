@@ -13,9 +13,13 @@ describe('MessageApp', () => {
   beforeEach(function(){
     mockAxios.post.mockImplementation(() =>
     Promise.resolve({ data: [] }))
-  })
+    mockAxios.get.mockImplementation(() =>
+    Promise.resolve({data: [{id:1, content:'hello', date:'2000'}]})
+  )})
+
   afterEach(function(){
     mockAxios.post.mockClear()
+    mockAxios.get.mockClear()
   })
 
   it('renders without crashing', () => {
@@ -45,4 +49,10 @@ describe('MessageApp', () => {
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3001/message", {"content": "Hello"});
     expect(component.instance().refs.messageFormRef.state.currentMessage).toEqual('');
   });
+
+  it('Loads data from api', () => {
+    mount(<MessageApp />);
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  });
+
 })
