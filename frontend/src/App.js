@@ -29,8 +29,9 @@ class MessageApp extends Component {
     axios.post(`${PORT}/message`, {
       content: data
     })
+    .then(()=> this.getAllMessages())
   }
-  
+
   render(){
     return (
       <div>
@@ -38,7 +39,9 @@ class MessageApp extends Component {
       ref='messageFormRef'
       submitMessage={this.submitMessage}
       />
-      <MessageList/>
+      <MessageList
+      messages={this.state.messages}
+      />
       </div>
     );
   }
