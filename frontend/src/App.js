@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MessageList from './components/messageList.js'
 import MessageForm from './components/messageForm.js'
-import './App.css';
-class MessageApp extends React.Component {
-  render(){
+import axios from 'axios';
+const PORT = 'http://localhost:3001';
+
+class MessageApp extends Component {
+submitMessage = (data) => {
+    axios.post(`${PORT}/message`, {
+      content: data
+    })
+  }
+render(){
     return (
-      <div className="App">
+      <div>
       <MessageForm
       ref='messageFormRef'
+      submitMessage={this.submitMessage}
       />
       <MessageList/>
       </div>
