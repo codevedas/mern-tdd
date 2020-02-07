@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 class MessageList extends Component {
   render(){
     if (this.props.messages){
@@ -11,6 +12,12 @@ class MessageList extends Component {
           {message.content}
           <br/>
           {message.date}
+          <br/>
+          <button
+          id='delete'
+          onClick={()=>this.props.handleDelete(message.id)}>
+          delete
+          </button>
           </li>
         })}
         </ul>)

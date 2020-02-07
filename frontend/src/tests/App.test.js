@@ -3,6 +3,8 @@ import React from 'react';
 import MessageApp from '../App'
 import mockAxios from '../__mocks__/axios.js'
 import errorMock from '../__mocks__/error.json'
+import mockMessages from '../__mocks__/messages.json'
+import mockDeleted from '../__mocks__/messagesDeleted.json'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { mount } from 'enzyme'
@@ -13,14 +15,23 @@ describe('MessageApp', () => {
 
   beforeEach(function(){
     mockAxios.post.mockImplementation(() =>
-    Promise.resolve({ data: [] }))
+    Promise.resolve({
+      data: []
+    }));
     mockAxios.get.mockImplementation(() =>
-    Promise.resolve({data: [{id:1, content:'hello', date:'2000'}]})
-  )})
+    Promise.resolve({
+      data: mockMessages
+    }));
+    mockAxios.delete.mockImplementation(() =>
+    Promise.resolve({
+      data: mockDeleted
+    }));
+  })
 
   afterEach(function(){
     mockAxios.post.mockClear()
     mockAxios.get.mockClear()
+    mockAxios.delete.mockClear()
   })
 
   it('renders without crashing', () => {
@@ -54,6 +65,15 @@ describe('MessageApp', () => {
   it('Loads data from api', () => {
     mount(<MessageApp />);
     expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  });
+
+  it('removes message on delete', async () => {
+    const component = await mount(<MessageApp/>);
+    await component.update()
+    await component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    await component.update()
+    expect(mockAxios.delete).toHaveBeenCalledWith("http://localhost:3001/delete/1", {"id": 1})
+    expect(component.find('ul#message_list').children().length).toBe(4);
   });
 
 })

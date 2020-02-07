@@ -50,6 +50,18 @@ class MessageApp extends Component {
     })
   }
 
+  deleteMessage = (id) => {
+    axios.delete(`${PORT}/delete/${id}`, {
+      id: id
+    })
+    .then((result)=>{
+      this.setMessages(result.data)
+    })
+    .catch((err)=>{
+      this.setError(err.response);
+    })
+  }
+
   render(){
     return (
       <div>
@@ -62,6 +74,7 @@ class MessageApp extends Component {
       />
       <MessageList
       messages={this.state.messages}
+      handleDelete={this.deleteMessage}
       />
       </div>
     );
