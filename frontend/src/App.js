@@ -56,7 +56,7 @@ class MessageApp extends Component {
       id: id
     })
     .then((result)=>{
-      this.setMessages(result.data)
+      this.getAllMessages()
     })
     .catch((err)=>{
       this.setError(err);
@@ -68,7 +68,7 @@ class MessageApp extends Component {
       content: content
     })
     .then((result)=>{
-      this.handleSuccess(result.data)
+      this.getAllMessages()
     })
     .catch((err)=>{
       this.setError(err);
