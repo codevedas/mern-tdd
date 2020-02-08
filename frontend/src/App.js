@@ -18,6 +18,7 @@ class MessageApp extends Component {
       error: error
     })
   }
+
   setMessages(messages){
     this.setState({
       messages: messages
@@ -58,7 +59,7 @@ class MessageApp extends Component {
       this.setMessages(result.data)
     })
     .catch((err)=>{
-      this.setError(err.response);
+      this.setError(err);
     })
   }
 

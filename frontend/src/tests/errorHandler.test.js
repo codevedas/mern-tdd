@@ -16,7 +16,7 @@ describe('Error', () => {
   });
   it('displays with error', async () => {
     const component = mount(<ErrorHandler
-      error={{data: errorMock}}
+      error={errorMock}
       />);
       await component.update()
     expect(component.find('#error').text()).toBe("Error: error text from json mock");

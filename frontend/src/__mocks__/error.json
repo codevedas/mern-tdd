@@ -1,1 +1,5 @@
-"error text from json mock"
+{
+  "response":{
+    "data": "error text from json mock"
+  }
+}

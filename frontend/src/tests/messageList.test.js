@@ -11,22 +11,25 @@ describe('List', () => {
     expect(component).toMatchSnapshot();
   });
   it('takes messages as props and displays them', () => {
-    const component = shallow(<MessageList
+    const component = shallow(<MessageList messages={mockMessages}/>);
+    expect(component.find('ul#message_list').length).toBe(1);
+  });
+  it('each message in list has delete button', () => {
+    const component = mount(<MessageList messages={mockMessages}/>);
+    expect(component.find('ul#message_list').childAt(0).exists('button#delete')).toBe(true);
+  });
+  it('each message has update button', () => {
+    const component = shallow(<MessageList messages={mockMessages} loaded={true} />)
+    expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('update')
+  });
+
+  it('update click changes button text', () => {
+    const component = mount(<MessageList
       messages={mockMessages}
+      loaded={true}
       />);
-      expect(component.find('ul#message_list').length).toBe(1);
+      component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+      expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
     });
-    it('each message in list has delete button', () => {
-      const component = mount(<MessageList
-        messages={mockMessages}
-        />);
-        expect(component.find('ul#message_list').childAt(0).exists('button#delete')).toBe(true);
-      });
-      it('each message has update button', () => {
-        const component = shallow(<MessageList
-          messages={mockMessages}
-          loaded={true}
-          />)
-          expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('update')
-        });
-      });
+
+  });
