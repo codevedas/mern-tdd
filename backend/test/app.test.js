@@ -74,7 +74,7 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body[0].content).to.equal("Hello World")
+      expect(res.body.content).to.equal("Hello World")
       done()
     })
   })
@@ -89,7 +89,7 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body.length).to.equal(0)
+      expect(res.body.deletedCount).to.equal(1)
       done()
     })
   })
