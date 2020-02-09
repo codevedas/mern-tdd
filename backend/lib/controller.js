@@ -1,13 +1,6 @@
 //controller.js
 import MessageModel from './model'
 
-let messageApp;
-if (process.env.npm_lifecycle_event == "test") {
-  messageApp = new MessageModel(`/\///json/\//testMessages.json`)
-  } else {
-    messageApp = new MessageModel(`/\///json/\//messages.json`)
-    }
-
     function getAll(){
       return new Promise((resolve, reject) => {
         let result = messageApp.getAll()
@@ -20,15 +13,9 @@ if (process.env.npm_lifecycle_event == "test") {
     }
 
     function post(content){
-      return new Promise((resolve, reject) => {
-        let message = messageApp.post(content)
-        if (message.length !== 0) {
-          resolve(message)
-        } else {
-          reject("You can't post an empty message")
-        }
-      })
-    }
+        let newMessage = new MessageModel({content: content})
+        return newMessage.save()
+      }
 
 
     function deleteMessage(id){
