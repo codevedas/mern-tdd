@@ -9,10 +9,10 @@ describe("message API endpoint tests", function(){
 
   before(function (done) {
     mongoose.connect('mongodb://localhost/testMessages', { useNewUrlParser: true, useFindAndModify: false }, function(){
-          mongoose.connection.db.dropDatabase(function(){
-              done()
-          })
+      mongoose.connection.db.dropDatabase(function(){
+        done()
       })
+    })
   })
 
   it("posts a message", function(done) {
@@ -42,7 +42,6 @@ describe("message API endpoint tests", function(){
         return done(err)
       }
       expect(res.body.length).to.equal(1)
-      expect(res.body[0].id).to.equal(1)
       expect(res.body[0].content).to.equal('hi world')
       done()
     })
@@ -59,7 +58,7 @@ describe("message API endpoint tests", function(){
       done()
     })
   })
-it("updates a message", function(done) {
+  it("updates a message", function(done) {
     data = {
       content: "Hello World"
     }
@@ -124,7 +123,7 @@ describe("message api errors correctly", function(){
     })
   })
 
-it("errors if cant find single message", function(done) {
+  it("errors if cant find single message", function(done) {
     const res = request(MessageApp)
     .get("/message/1")
     res.expect(404)
@@ -137,7 +136,7 @@ it("errors if cant find single message", function(done) {
     })
   })
 
-it("errors on bad update", function(done) {
+  it("errors on bad update", function(done) {
     data = {
       content: "Hello World"
     }
@@ -155,7 +154,7 @@ it("errors on bad update", function(done) {
     })
   })
 
-it("errors deleting message that doesn't exist", function(done) {
+  it("errors deleting message that doesn't exist", function(done) {
     data = {
       id: 0
     };
