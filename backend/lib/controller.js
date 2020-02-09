@@ -10,27 +10,12 @@ function post(content){
   return newMessage.save()
 }
 
-
 function deleteMessage(id){
-  return new Promise((resolve, reject) => {
-    let result = messageApp.delete(id)
-    if (result !== 'Message not found in database') {
-      resolve(result)
-    } else {
-      reject(result)
-    }
-  })
+  return MessageModel.deleteOne({_id: id})
 }
 
 function getSingleMessage(id){
-  return new Promise((resolve, reject) => {
-    let result = messageApp.get(id)
-    if (result) {
-      resolve(result)
-    } else {
-      reject('No messages in database')
-    }
-  })
+  return MessageModel.findOne({_id: id})
 }
 
 function updateMessage(id, content){
