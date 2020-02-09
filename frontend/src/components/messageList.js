@@ -50,7 +50,7 @@ class MessageList extends Component {
       }
       return <li
       className='message'
-      key={message.id}>
+      key={message._id}>
       {content}
       <br/>
       {message.date}
