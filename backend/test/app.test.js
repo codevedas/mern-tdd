@@ -95,8 +95,8 @@ describe("message API endpoint tests", function(){
   })
 })
 
-describe("message api errors correctly", function(){
-  it("posts a message errors", function(done) {
+describe("Message api errors correctly", function(){
+  it("posts empty message errors", function(done) {
     data = {
       content: ""
     };
@@ -129,13 +129,13 @@ describe("message api errors correctly", function(){
 
   it("errors if cant find single message", function(done) {
     const res = request(MessageApp)
-    .get("/message/1")
+    .get("/message/5e3488081b8bfa79a6625542")
     res.expect(404)
     .end(function(err, res) {
       if (err) {
         return done(err)
       }
-      expect(res.body).to.equal("No messages in database")
+      expect(res.body).to.equal("Message not found in database")
       done()
     })
   })
@@ -145,7 +145,7 @@ describe("message api errors correctly", function(){
       content: "Hello World"
     }
     const res = request(MessageApp)
-    .put('/update/0')
+    .put('/update/5e3488081b8bfa79a6625542')
     .send(data)
     .set("Accept", "application/json")
     res.expect(404)
@@ -153,18 +153,14 @@ describe("message api errors correctly", function(){
       if (err) {
         return done(err)
       }
-      expect(res.body).to.equal('You can\'t post an empty message')
+      expect(res.body).to.equal("Message not found in database")
       done()
     })
   })
 
-  it("errors deleting message that doesn't exist", function(done) {
-    data = {
-      id: 0
-    };
+  it("errors deleting message that doesnt exist", function(done) {
     const res = request(MessageApp)
-    .delete("/delete/0")
-    .send(data)
+    .delete("/delete/5e3489f97d2ed07a96a02103")
     .set("Accept", "application/json")
     res.expect(404)
     .end(function(err, res) {
