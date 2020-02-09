@@ -18,7 +18,7 @@ class MessageList extends Component {
   toggleUpdate(message){
     this.setState({
       editMode: {
-        id: message.id,
+        id: message._id,
         content: message.content
       }
     })
@@ -30,10 +30,10 @@ class MessageList extends Component {
     id='update'>
     update
     </button>
-    if (message.id === this.state.editMode.id){
+    if (message._id === this.state.editMode.id){
       content = (<textarea
         onChange={(e) => this.setState({editMode: {
-          id: message.id,
+          id: message._id,
           content: e.target.value
         }}
       )}
@@ -57,7 +57,7 @@ class MessageList extends Component {
       <br/>
       <button
       id='delete'
-      onClick={()=>this.props.handleDelete(message.id)}>
+      onClick={()=>this.props.handleDelete(message._id)}>
       delete
       </button>
       {updateButton}
